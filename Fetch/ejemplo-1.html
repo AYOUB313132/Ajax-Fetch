@@ -9,15 +9,35 @@
 </head>
 
 <body>
-    <input type="button" value="cargar información" /><br>
+    <input type="button" value="cargar información" /><br><br>
     <textarea id="resultado" cols="50" rows="10"></textarea>
 </body>
+
+</html>
 <script>
-    let btn = document.getElementsByTagName('input')[0]
+    let btn = document.querySelector('[type="button"]')
     let resultado = document.getElementById('resultado')
-    let url = ''
+        //cargamos la info cuando pulsamos el botón
     btn.onclick = () => {
-        test
+        //hacemos la petición asíncrona con fetch
+        //.then : recogemos la información
+        //      .then : tratamos la información 
+        //catch : gestionamos posibles errores 
+        fetch("https://randomuser.me/api/?results=5")
+            .then((response) => {
+                return response.json(); //recogemos la info
+            })
+            .then((usuarios) => {
+                //qué hago con la información recibida
+                console.log(usuarios.results);
+                for (usuario of usuarios.results) {
+                    resultado.innerHTML += usuario.email + "\n";
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+
     }
 </script>
 
