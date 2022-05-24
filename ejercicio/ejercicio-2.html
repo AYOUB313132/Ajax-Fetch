@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Hola Mundo</title>
+    <meta charset="UTF-8">
+    <script type="text/javascript" language="javascript">
+/*
+vamos a cargar contenido en el textarea procedente de holamundo.txt
+*/
+    </script>
+
+</head>
+
+<body>    
+    <form name="form1">
+        <textarea id="textarea1" rows="10" cols="100" disabled="disabled"></textarea>
+        <br>
+        <input id="boton1" type="button" value="Cargar contenido">
+    </form>
+</body>
+<script>
+    let resultado = document.getElementById('textarea1')
+    let btn = document.getElementById('boton1')
+
+    btn.onclick = () => {
+        let xhr = new XMLHttpRequest()
+        xhr.onreadystatechange = () => {
+            if ( (xhr.readyState == 4) && (xhr.status == 200)) {
+                resultado.value = xhr.responseText
+            }
+        }
+        xhr.open('GET', '/files/holaMundo.txt')
+        xhr.send()
+    }
+    
+</script>
+</html>

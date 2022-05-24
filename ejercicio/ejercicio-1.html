@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="utf-8">
+	<title>AJAX - JSON Array</title>
+	<script type="text/javascript" src=""></script>
+
+
+	<style type="text/css">
+
+			table, th, td {
+				border-collapse: collapse;
+			    border: 1px solid black;
+			    width: 200px;
+				height: 30px;
+			}
+
+	</style>
+
+</head>
+<body>
+	<button type="button" onclick="update()">Mostrar Datos</button>
+	<div id="cuerpo">
+		
+		<table id="info">
+
+		</table>
+
+	</div>
+
+</body>
+</html>
+
+<script>
+/*leeremos la información del json datos.json y la
+mostraremos en la tabla*/
+let tabla = document.getElementById('info')
+update = () => {
+    let xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = () => {
+        if( (xhr.readyState == 4) && (xhr.status == 200)) {
+            let data = JSON.parse(xhr.responseText)
+            console.log(data)
+            let th = document.createElement('thead')
+            th.innerHTML = '<th>nombre</th><th>apellido</th><th>vehiculo</th>'
+            tabla.appendChild(th)
+            for (let info of data){
+                console.log(info.nombre)
+                let tr = document.createElement('tr')
+                let td = document.createElement('td')
+                td.innerHTML = info.nombre
+                tr.appendChild(td)
+                tabla.appendChild(tr)
+                
+                let td2 = document.createElement('td')
+                td2.innerHTML = info.apellido
+                tr.appendChild(td2)
+                tabla.appendChild(tr)
+
+                let td3 = document.createElement('td')
+                td3.innerHTML = info.vehiculo
+                tr.appendChild(td3)
+                tabla.appendChild(tr)
+
+
+                
+
+                //tr.innerHTML = info.apellido
+                //tabla.appendChild(tr)
+
+            }
+            
+            
+
+        }
+    }
+    xhr.open('GET','/files/datos.json', true)
+    xhr.send()
+}
+
+
+</script>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ciudades</title>
+  </head>
+  <body>
+    <select id="provincias" onchange="renderCiudades(allCities)">
+      <option selected disabled>Selecciona una provincia</option>
+    </select>
+    <select id="ciudades" disabled>
+      <option selected disabled>Selecciona una ciudad</option>
+    </select>
+  
+  </body>
+  <script>
+      let selectP = document.getElementById('provincias')
+      let selectCS = document.getElementById('ciudades')
+    let url = 'https://raw.githubusercontent.com/elenBilbo/Ajax/main/ejercicios/ejercicio_ciudades/ciudades.json'
+    window.onload= () =>{
+        fetch(url)
+        .then((response) => {
+            return response.json()
+            
+        })
+        .then((provencia) =>{
+            console.log(provencia)
+            console.log(provencia[0].Capitalidad)
+            console.log(provencia[1].Capitalidad)
+            console.log(provencia[8115].Capitalidad)
+            let mySet = new Set() // 52 provencia
+            let cuidades = new Set();
+            for (let pro of provencia){
+                //console.log(pro.Capitalidad)
+                //console.log(pro.CP)
+                mySet.add(pro.Provincia)
+                cuidades.add(pro.Capitalidad)
+            }
+            console.log(cuidades.size)
+            for (let p of mySet){
+                let option = document.createElement('option')
+                option.setAttribute('value', p)
+                option.textContent = p
+                selectP.appendChild(option)
+            }
+            selectCS.removeAttribute('disabled')
+            for (let c of cuidades){
+                let option2 = document.createElement('option')
+                option2.setAttribute('value', c)
+                option2.textContent = c
+                selectCS.appendChild(option2)
+            }
+            
+        })
+        /*
+        .then( renderCiudades = (allCities) =>{
+            for ( allCities of selectP){
+                console.log(allCities.value)
+            }
+        }
+        
+
+        )*/
+        .catch((err) => console.log(err))
+      }
+  </script>
+</html>
