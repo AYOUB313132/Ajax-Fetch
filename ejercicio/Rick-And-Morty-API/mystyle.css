@@ -34,7 +34,8 @@ body {
     width: 75%;
 }
 
-#search-bar, #search-button {
+#search-bar,
+#search-button {
     height: 3em;
     margin: 0;
     padding: 0;
